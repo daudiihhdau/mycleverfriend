@@ -1,0 +1,32 @@
+{
+  "version": 1,
+  "info": {
+    "name": "My Favorites On Amazon",
+    "version": "1.0.0.1",
+    "author": "Mathias Mielitz",
+    "description": "Copy a directory or file.",
+    "tags": ["directory", "copy"]
+  },
+  "databases": { 
+    "csvfiles": {
+      "data": [{
+        "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
+      }]
+    }
+  },
+  "plugins": [
+    { "name": "ReadCsv", "version": "1.0.0.1" }
+  ],
+  "tasks": [
+    {
+      "plugin_id": 0,
+      "files": [
+        {
+          "select": ["filename"],
+          "from": "csvfiles",
+          "where": "[*]"
+        }
+      ]
+    }
+  ]
+}

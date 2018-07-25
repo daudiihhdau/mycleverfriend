@@ -1,0 +1,83 @@
+{
+  "version": 1,
+  "info": {
+    "name": "My Favorites On Amazon",
+    "version": "1.0.0.1",
+    "author": "Mathias Mielitz",
+    "description": "Copy a directory or file.",
+    "tags": ["directory", "copy"]
+  },
+  "databases": { 
+    "csvfiles": {
+      "data": [{
+        "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
+      }]
+    },
+    "jsscripts": {
+      "data": [{
+        "filepath": "/home/daudiihhdau/Dokumente/ronny_romo/test.js"
+      }]
+    },
+    "resultfiles": {
+      "data": [{
+        "path": "/home/daudiihhdau/Dokumente/ronny_romo/romo.csv"
+      }]
+    }
+  },
+  "plugins": [
+    { "name": "ReadCsv", "version": "1.0.0.1" },
+    { "name": "ExecuteJavascript", "version": "1.0.0.1" },
+    { "name": "SaveFiles", "version": "1.0.0.1" }
+  ],
+  "tasks": [
+    {
+      "plugin_id": 0,
+      "files": [
+        {
+          "select": ["filename"],
+          "from": "csvfiles",
+          "where": "[*]"
+        }
+      ]
+    },
+    {
+      "plugin_id": 1,
+      "jsscripts": [
+        {
+          "select": ["filepath"],
+          "from": "jsscripts",
+          "where": "[*]"
+        }
+      ],
+      "values": [
+        {
+          "select": ["sku", "sourcecode"],
+          "from": "csvfiles",
+          "where": "[*].content"
+        }
+      ]
+    },
+    {
+      "plugin_id": 2,
+      "paths": [
+        {
+          "select": ["path"],
+          "from": "resultfiles",
+          "where": "[*]"
+        }
+      ],
+      "content": [
+        {
+          "select": ["sku", "collection_name", "design_name", { "name": "{{name}}" }, "color_name", "subtitle", "url", "image-src"],
+          "from": "1.result",
+          "where": "[*]"
+        },
+        {
+          "select": ["bezeichnung", "zusammensetzung", "breite", "musterrapport", "mustergröße", "pflegehinweis", "verwendung"],
+          "from": "2.result",
+          "where": "[*]"
+        }
+      ]
+    }
+  ]
+}
