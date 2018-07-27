@@ -9,6 +9,7 @@
   },
   "databases": { 
     "csvfiles": {
+      "engine": "lokijs",
       "data": [{
         "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
       }]

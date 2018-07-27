@@ -1,0 +1,46 @@
+{
+  "name": "mycleverfriend",
+  "version": "0.0.1",
+  "description": "The open source RPA engine.",
+  "main": "start.js",
+  "scripts": {
+    "start": "nodemon ./dist/bundle.js",
+    "build": "webpack --mode production",
+    "dev": "webpack --watch --mode development"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/daudiihhdau/mycleverfriend.git"
+  },
+  "keywords": [
+    "RPA",
+    "Automation"
+  ],
+  "author": "Mathias Mielitz",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/daudiihhdau/mycleverfriend/issues"
+  },
+  "homepage": "https://github.com/daudiihhdau/mycleverfriend#readme",
+  "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.5",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^5.2.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-loader": "^2.1.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^7.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
+    "webpack": "^4.16.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-node-externals": "^1.7.2"
+  },
+  "dependencies": {
+    "bunyan": "^1.8.12",
+    "lokijs": "^1.5.5"
+  }
+}
