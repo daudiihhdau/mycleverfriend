@@ -1,3 +1,5 @@
+// import ora from 'ora'
+// import chalk from 'chalk'
 import Logger from './helper/logger'
 import MissionFactory from './missionFactory'
 
@@ -9,7 +11,10 @@ import MissionFactory from './missionFactory'
 async function start () {
   Logger.trace('start')
   let missionFactory = new MissionFactory({ filePath: './start/test_1.json' })
-  await missionFactory.createMission()
+  await missionFactory.create()
 }
 
 start()
+
+// process.stdout.write
+// process.exit(1)

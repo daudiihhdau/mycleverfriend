@@ -1,10 +1,10 @@
 {
   "name": "mycleverfriend",
   "version": "0.0.1",
-  "description": "The open source RPA engine.",
+  "description": "The open-source RPA Engine.",
   "main": "start.js",
   "scripts": {
-    "start": "nodemon ./dist/bundle.js",
+    "start": "nodemon ./dist/bundle.js | bunyan",
     "build": "webpack --mode production",
     "dev": "webpack --watch --mode development"
   },
@@ -41,6 +41,10 @@
   },
   "dependencies": {
     "bunyan": "^1.8.12",
-    "lokijs": "^1.5.5"
+    "chalk": "^2.4.1",
+    "knex": "^0.15.2",
+    "lokijs": "^1.5.5",
+    "ora": "^3.0.0",
+    "underscore": "^1.9.1"
   }
 }

@@ -16,7 +16,7 @@
     }
   },
   "plugins": [
-    { "name": "ReadCsv", "version": "1.0.0.1" }
+    { "name": "knex", "version": "0.15.2" }
   ],
   "tasks": [
     {

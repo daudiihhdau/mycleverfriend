@@ -1,3 +1,12 @@
 import bunyan from 'bunyan'
 
-export default bunyan.createLogger({ name: 'mycleverfriend', stream: process.stdout, level: 'trace' })
+// TODO: use singletoon here // http://loredanacirstea.github.io/es6-design-patterns/#singleton
+export default bunyan.createLogger({
+  name: 'mycleverfriend',
+  streams: [
+    {
+      level: 'trace',
+      stream: process.stdout
+    }
+  ]
+})

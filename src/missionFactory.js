@@ -2,6 +2,7 @@ import fs from 'fs'
 import Logger from './helper/logger'
 import Mission from './mission'
 import DatabaseFactory from './databaseFactory'
+import PluginFactory from './pluginFactory'
 
 class MissionFactory {
   constructor (options) {
@@ -13,12 +14,14 @@ class MissionFactory {
   }
 
   // todo: validate json schema here!
-  async createMission () {
+  async create () {
     let databaseFactory = new DatabaseFactory({ databases: this.fileContent.databases })
+    let pluginFactory = new PluginFactory({ plugins: this.fileContent.plugins })
 
     return new Mission({
       info: this.fileContent.info,
-      databases: databaseFactory.createDatabases()
+      databases: databaseFactory.create(),
+      pluginTree: pluginFactory.create()
     })
   }
 }

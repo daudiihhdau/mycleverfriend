@@ -1,2 +1,2 @@
 # mycleverfriend
-An open-source RPA Tool
+The open-source RPA Engine.
