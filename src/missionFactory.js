@@ -16,12 +16,14 @@ class MissionFactory {
   // todo: validate json schema here!
   async create () {
     let databaseFactory = new DatabaseFactory({ databases: this.fileContent.databases })
-    let pluginFactory = new PluginFactory({ plugins: this.fileContent.plugins })
+    let pluginFactory = new PluginFactory({ plugins: this.fileContent.plugins, tasks: this.fileContent.tasks })
+
+    // pluginFactory.install()
 
     return new Mission({
       info: this.fileContent.info,
       databases: databaseFactory.create(),
-      pluginTree: pluginFactory.create()
+      tasks: pluginFactory.create()
     })
   }
 }
