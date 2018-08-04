@@ -11,7 +11,8 @@ import MissionFactory from './missionFactory'
 async function start () {
   Logger.trace('start')
   let missionFactory = new MissionFactory({ filePath: './start/test_1.json' })
-  await missionFactory.create()
+  let mission = await missionFactory.create()
+  mission.start()
 }
 
 start()

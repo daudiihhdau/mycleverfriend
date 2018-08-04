@@ -11,6 +11,36 @@ class Mission {
     this.databases = options.databases
     this.tasks = options.tasks
   }
+
+  get Name () {
+    return this.info.name
+  }
+
+  get Version () {
+    return this.info.version
+  }
+
+  get Author () {
+    return this.info.author
+  }
+
+  get Description () {
+    return this.info.description
+  }
+
+  get Tags () {
+    return this.info.tags
+  }
+
+  async start () {
+    Logger.trace('start mission')
+
+    this.tasks.walk(function (taskOn) {
+      Logger.trace('start node: ', taskOn.model)
+      // load input data
+      // start plugin nodes
+    })
+  }
 }
 
 export default Mission

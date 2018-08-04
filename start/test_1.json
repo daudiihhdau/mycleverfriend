@@ -18,7 +18,7 @@
   "plugins": [
     { "name": "knex", "version": "0.15.2" }
   ],
-  "tasks": [
+  "list": [
     {
       "plugin_id": 0,
       "files": [

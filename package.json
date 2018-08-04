@@ -4,9 +4,11 @@
   "description": "The open-source RPA Engine.",
   "main": "start.js",
   "scripts": {
-    "start": "nodemon ./dist/bundle.js | bunyan",
-    "build": "webpack --mode production",
-    "dev": "webpack --watch --mode development"
+    "start": "nodemon ./dist/mycleverfriend.js | bunyan",
+    "eslint": "eslint --fix --ext .js src/",
+    "babel": "babel src --out-file dist/mycleverfriend.js --copy-files",
+    "build": "npm run eslint && npm run babel",
+    "dev": "watch 'npm run build' src --wait 3 --ignoreDotFiles"
   },
   "repository": {
     "type": "git",
@@ -23,29 +25,23 @@
   },
   "homepage": "https://github.com/daudiihhdau/mycleverfriend#readme",
   "devDependencies": {
-    "babel": "^6.23.0",
-    "babel-core": "^6.26.3",
-    "babel-eslint": "^8.2.6",
-    "babel-loader": "^7.1.5",
-    "babel-preset-es2015": "^6.24.1",
-    "eslint": "^5.2.0",
+    "babel-cli": "^6.26.0",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "eslint": "^5.3.0",
     "eslint-config-standard": "^11.0.0",
-    "eslint-loader": "^2.1.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "webpack": "^4.16.2",
-    "webpack-cli": "^3.1.0",
-    "webpack-node-externals": "^1.7.2"
+    "watch": "^1.0.2"
   },
   "dependencies": {
+    "app-root-path": "^2.1.0",
     "bunyan": "^1.8.12",
     "chalk": "^2.4.1",
     "knex": "^0.15.2",
     "lokijs": "^1.5.5",
     "ora": "^3.0.0",
-    "tree-model": "^1.0.7",
-    "underscore": "^1.9.1"
+    "tree-model": "^1.0.7"
   }
 }
