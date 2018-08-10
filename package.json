@@ -4,11 +4,12 @@
   "description": "The open-source RPA Engine.",
   "main": "start.js",
   "scripts": {
-    "start": "nodemon ./dist/mycleverfriend.js | bunyan",
-    "eslint": "eslint --fix --ext .js src/",
-    "babel": "babel src --out-file dist/mycleverfriend.js --copy-files",
+    "start": "nodemon ./dist/start.js | bunyan",
+    "serve": "node ./dist/start.js",
+    "eslint": "eslint --ext .js src",
+    "babel": "babel src -d dist --copy-files",
     "build": "npm run eslint && npm run babel",
-    "dev": "watch 'npm run build' src --wait 3 --ignoreDotFiles"
+    "dev": "watch 'npm run build' src"
   },
   "repository": {
     "type": "git",
@@ -26,17 +27,22 @@
   "homepage": "https://github.com/daudiihhdau/mycleverfriend#readme",
   "devDependencies": {
     "babel-cli": "^6.26.0",
+    "babel-eslint": "^8.2.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-latest": "^6.24.1",
     "eslint": "^5.3.0",
     "eslint-config-standard": "^11.0.0",
     "eslint-plugin-import": "^2.13.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
+    "rimraf": "^2.6.2",
     "watch": "^1.0.2"
   },
   "dependencies": {
     "app-root-path": "^2.1.0",
+    "babel-polyfill": "^6.26.0",
     "bunyan": "^1.8.12",
     "chalk": "^2.4.1",
     "knex": "^0.15.2",

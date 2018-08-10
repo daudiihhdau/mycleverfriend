@@ -1,4 +1,15 @@
-{ 
-  "presets": ["es2015"],
-  "plugins": ["syntax-dynamic-import"]
+{
+  "presets": [
+    ["latest", {
+      "targets": {
+        "node": "current"
+      }
+    }]
+  ],
+  "plugins": [
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
+    }]
+  ]
 }

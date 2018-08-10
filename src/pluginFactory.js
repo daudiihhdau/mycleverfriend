@@ -61,7 +61,7 @@ class PluginFactory {
     } */
 
     // https://stackoverflow.com/questions/39158552/ignore-eslint-error-import-and-export-may-only-appear-at-the-top-level
-    import('knex').then((data) => {
+    require('bunyan').then((data) => {
       Logger.trace(data)
     })
 
