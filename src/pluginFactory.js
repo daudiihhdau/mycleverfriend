@@ -53,21 +53,19 @@ class PluginFactory {
   }
 
   [loadPlugin] (plugin) {
-    const pluginPath = AppRoot.path + '/plugins/'
-    Logger.trace('load plugin from: ', pluginPath)
+    const pluginPath = AppRoot.path + '/node_modules/'
+    Logger.trace('load plugin from: ', plugin, pluginPath)
 
-    /* if (!this[isPluginAvailable](plugin)) {
+    if (!this[isPluginAvailable](plugin)) {
       Logger.error('plugin is not available')
-    } */
+    }
 
     // https://stackoverflow.com/questions/39158552/ignore-eslint-error-import-and-export-may-only-appear-at-the-top-level
-    require('bunyan').then((data) => {
-      Logger.trace(data)
-    })
+    var pluginw = require(plugin.name)
 
     // let pluginPackagew = require.ensure(plugin.name + '/package.json')
 
-    // Logger.trace(pluginw)
+    Logger.trace(pluginw)
     // Logger.trace(pluginPackagew)
   }
 

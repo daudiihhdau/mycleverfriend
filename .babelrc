@@ -10,6 +10,7 @@
     ["transform-runtime", {
       "polyfill": false,
       "regenerator": true
-    }]
+    }],
+    "babel-plugin-syntax-dynamic-import"
   ]
 }

@@ -42,7 +42,6 @@
   },
   "dependencies": {
     "app-root-path": "^2.1.0",
-    "babel-polyfill": "^6.26.0",
     "bunyan": "^1.8.12",
     "chalk": "^2.4.1",
     "knex": "^0.15.2",
