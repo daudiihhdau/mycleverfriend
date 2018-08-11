@@ -16,7 +16,7 @@
     }
   },
   "plugins": [
-    { "name": "fuse.js", "version": "0.15.2" }
+    { "name": "fuse.js", "version": "3.2.1" }
   ],
   "list": [
     {

@@ -46,7 +46,7 @@ class PluginFactory {
     Logger.trace(`install plugin "${plugin.name}@${plugin.version}"`)
     try {
       // TODO: use isPluginAvailable here
-      execSync(`npm list ${plugin.name} || npm install ${plugin.name}@${plugin.version}`, { encoding: 'utf8', stdio: [0, 1, 2] })
+      execSync(`npm list "${plugin.name}" || npm install "${plugin.name}@${plugin.version}"`, { encoding: 'utf8', stdio: [0, 1, 2] })
     } catch (error) {
       Logger.error('npm install failed:', error)
     }
@@ -58,15 +58,15 @@ class PluginFactory {
 
     if (!this[isPluginAvailable](plugin)) {
       Logger.error('plugin is not available')
+      this[installPlugin](plugin)
     }
 
-    // https://stackoverflow.com/questions/39158552/ignore-eslint-error-import-and-export-may-only-appear-at-the-top-level
-    var pluginw = require(plugin.name)
+    // let pluginw = require(plugin.name)
+    let pluginPackagew = require(plugin.name + '/package.json')
 
-    // let pluginPackagew = require.ensure(plugin.name + '/package.json')
-
-    Logger.trace(pluginw)
-    // Logger.trace(pluginPackagew)
+    // Logger.trace(pluginw)
+    Logger.trace('Keywords:' + pluginPackagew.keywords)
+    Logger.trace('Author:' + pluginPackagew.author)
   }
 
   [isPluginAvailable] (plugin) {
