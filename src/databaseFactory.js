@@ -12,7 +12,7 @@ class DatabaseFactory {
     this.lokijsDb = new LokiJS()
   }
 
-  create () {
+  setup () {
     return Object.entries(this.databases).map(([dbNameOn, dbSetupOn]) => {
       Logger.trace(`create database "${dbNameOn}" with options:`, dbSetupOn)
       // TODO: work with dbSetup.engine

@@ -2,6 +2,7 @@ import fs from 'fs'
 import Logger from './helper/logger'
 import Mission from './mission'
 import DatabaseFactory from './databaseFactory'
+import TaskTreeFactory from './taskTreeFactory'
 import PluginFactory from './pluginFactory'
 
 class MissionFactory {
@@ -14,16 +15,18 @@ class MissionFactory {
   }
 
   // todo: validate json schema here!
-  async create () {
+  async setup () {
     let databaseFactory = new DatabaseFactory({ databases: this.fileContent.databases })
     let pluginFactory = new PluginFactory({ plugins: this.fileContent.plugins, list: this.fileContent.list })
+    let taskTreeFactory = new TaskTreeFactory({ plugins: this.fileContent.plugins, list: this.fileContent.list })
 
     // pluginFactory.install()
 
     return new Mission({
       info: this.fileContent.info,
-      databases: databaseFactory.create(),
-      tasks: pluginFactory.create()
+      databases: databaseFactory.setup(),
+      plugins: pluginFactory.setup(),
+      tasks: taskTreeFactory.setup()
     })
   }
 }
