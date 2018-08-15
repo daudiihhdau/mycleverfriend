@@ -12,7 +12,7 @@ async function start () {
   Logger.trace('start')
   let missionFactory = new MissionFactory({ filePath: './start/test_1.json' })
   let mission = await missionFactory.setup()
-  mission.start()
+  await mission.start()
 }
 
 start()

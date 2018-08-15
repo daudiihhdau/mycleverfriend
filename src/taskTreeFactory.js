@@ -4,18 +4,15 @@ import TreeModel from 'tree-model'
 class TaskTreeFactory {
   constructor (options) {
     Logger.trace('init taskTreeFactory with options:', options)
-    if (!('list' in options)) throw new Error('options.list is required')
+    if (!('tasks' in options)) throw new Error('options.tasks is required')
 
-    this.list = options.list
+    this.tasks = options.tasks
     this.tree = new TreeModel()
   }
 
   // TODO: add loops and other logic collections here
   setup () {
-    return this.list.reduce((acc, pluginOn) => {
-      acc.addChild(this.tree.parse(pluginOn))
-      return acc
-    }, this.tree.parse({ type: 'list' }))
+    return this.tree.parse({ type: 'list', children: this.tasks })
   }
 }
 

@@ -10,6 +10,7 @@ class Mission {
 
     this.info = options.info
     this.databases = options.databases
+    this.plugins = options.plugins
     this.tasks = options.tasks
   }
 
@@ -36,10 +37,15 @@ class Mission {
   async start () {
     Logger.trace('start mission')
 
-    this.tasks.walk(function (taskOn) {
-      Logger.trace('start node: ', taskOn.model)
-      // load input data
-      // start plugin nodes
+    this.tasks.walk((taskOn) => {
+      if (taskOn.model.type !== 'list') {
+        Logger.trace('start node: ', taskOn.model)
+
+        let pluginNode = this.plugins[taskOn.model.plugin_id]
+        Logger.trace('prepare pluginNode: ', pluginNode)
+        // load input data
+        // start plugin nodes
+      }
     })
   }
 }

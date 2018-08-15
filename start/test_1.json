@@ -9,16 +9,15 @@
   },
   "databases": { 
     "csvfiles": {
-      "engine": "lokijs",
       "data": [{
         "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
       }]
     }
   },
   "plugins": [
-    { "name": "fuse.js", "version": "3.2.1" }
+    { "name": "@mycleverfriend/readcsvplugin", "version": "1.0.0" }
   ],
-  "list": [
+  "tasks": [
     {
       "plugin_id": 0,
       "files": [

@@ -41,6 +41,7 @@
     "watch": "^1.0.2"
   },
   "dependencies": {
+    "@mycleverfriend/readcsvplugin": "^1.0.0",
     "app-root-path": "^2.1.0",
     "bunyan": "^1.8.12",
     "chalk": "^2.4.1",

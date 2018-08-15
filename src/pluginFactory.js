@@ -1,6 +1,7 @@
 import Logger from './helper/logger'
 import ChildProcess from 'child_process'
 import AppRoot from 'app-root-path'
+import PluginNode from './pluginNode'
 
 const isPluginAvailable = Symbol('isPluginAvailable')
 const loadPlugin = Symbol('loadPlugin')
@@ -20,9 +21,7 @@ class PluginFactory {
 
   setup () {
     return Object.values(this.plugins).map((pluginOn) => {
-      // TODO: create pluginNode here
-      this[loadPlugin](pluginOn)
-      return pluginOn
+      return new PluginNode(this[loadPlugin](pluginOn))
     })
   }
 
@@ -42,12 +41,10 @@ class PluginFactory {
       this[installPlugin](plugin)
     }
 
-    // let pluginw = require(plugin.name)
-    let pluginPackagew = require(plugin.name + '/package.json')
+    let pluginProxy = require(plugin.name)
+    let pluginPackage = require(plugin.name + '/package.json')
 
-    // Logger.trace(pluginw)
-    Logger.trace('Keywords:' + pluginPackagew.keywords)
-    Logger.trace('Author:' + pluginPackagew.author)
+    return { pluginProxy, pluginPackage }
   }
 
   // TODO: do this asynchronous!
