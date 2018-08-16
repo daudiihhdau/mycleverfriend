@@ -15,7 +15,7 @@ class DatabaseFactory {
   setup () {
     return Object.entries(this.databases).map(([dbNameOn, dbSetupOn]) => {
       Logger.trace(`create database "${dbNameOn}" with options:`, dbSetupOn)
-      // TODO: work with dbSetup.engine
+
       let newCollection = this.lokijsDb.addCollection(dbNameOn)
       for (const docOn of dbSetupOn.data) {
         newCollection.insert(docOn)

@@ -2,7 +2,7 @@ import fs from 'fs'
 import Logger from './helper/logger'
 import Mission from './mission'
 import DatabaseFactory from './databaseFactory'
-import TaskTreeFactory from './taskTreeFactory'
+import ActionTreeFactory from './actionTreeFactory'
 import PluginFactory from './pluginFactory'
 
 class MissionFactory {
@@ -18,13 +18,13 @@ class MissionFactory {
   async setup () {
     let databaseFactory = new DatabaseFactory({ databases: this.fileContent.databases })
     let pluginFactory = new PluginFactory({ plugins: this.fileContent.plugins })
-    let taskTreeFactory = new TaskTreeFactory({ tasks: this.fileContent.tasks })
+    let actionTreeFactory = new ActionTreeFactory({ actions: this.fileContent.actions })
 
     return new Mission({
       info: this.fileContent.info,
       databases: databaseFactory.setup(),
       plugins: pluginFactory.setup(),
-      tasks: taskTreeFactory.setup()
+      actions: actionTreeFactory.setup()
     })
   }
 }

@@ -17,14 +17,13 @@
   "plugins": [
     { "name": "@mycleverfriend/readcsvplugin", "version": "1.0.0" }
   ],
-  "tasks": [
+  "actions": [
     {
       "plugin_id": 0,
       "files": [
         {
           "select": ["filename"],
-          "from": "csvfiles",
-          "where": "[*]"
+          "from": "csvfiles"
         }
       ]
     }

@@ -6,12 +6,12 @@ class Mission {
     if (!('info' in options)) throw new Error('options.filePath is required')
     if (!('databases' in options)) throw new Error('options.databases is required')
     if (!('plugins' in options)) throw new Error('options.plugins is required')
-    if (!('tasks' in options)) throw new Error('options.tasks is required')
+    if (!('actions' in options)) throw new Error('options.actions is required')
 
     this.info = options.info
     this.databases = options.databases
     this.plugins = options.plugins
-    this.tasks = options.tasks
+    this.actions = options.actions
   }
 
   get Name () {
@@ -37,13 +37,20 @@ class Mission {
   async start () {
     Logger.trace('start mission')
 
-    this.tasks.walk((taskOn) => {
-      if (taskOn.model.type !== 'list') {
-        Logger.trace('start node: ', taskOn.model)
+    this.actions.walk((actionOn) => {
+      if (actionOn.model.type !== 'list') {
+        Logger.trace('start node: ', actionOn.model)
 
-        let pluginNode = this.plugins[taskOn.model.plugin_id]
+        let pluginNode = this.plugins[actionOn.model.plugin_id]
         Logger.trace('prepare pluginNode: ', pluginNode)
+
         // load input data
+        // TODO: this should be part of dbProxy
+        Object.entries(actionOn.model).map(([keyOn, valueOn]) => {
+          if (Array.isArray(valueOn)) {
+          }
+        })
+
         // start plugin nodes
       }
     })

@@ -6,7 +6,7 @@ import MissionFactory from './missionFactory'
 // load mission file
 // download & load & prepare all plugins
 // load & prepare all databases
-// walk through task
+// walk through actions
 
 async function start () {
   Logger.trace('start')
