@@ -4,24 +4,22 @@ import LokiJS from 'lokijs'
 class DatabaseFactory {
   constructor (options) {
     Logger.trace('init databaseFactory with options:', options)
-    if (!('databases' in options)) throw new Error('options.databases is required')
+    if (!('collections' in options)) throw new Error('options.collections is required')
 
-    this.databases = options.databases
+    this.collections = options.collections
 
     // TODO: can we inject this code? or this db? (dependency injection)
     this.lokijsDb = new LokiJS()
   }
 
   setup () {
-    return Object.entries(this.databases).map(([dbNameOn, dbSetupOn]) => {
-      Logger.trace(`create database "${dbNameOn}" with options:`, dbSetupOn)
+    for (const [dbNameOn, dbSetupOn] of Object.entries(this.collections)) {
+      Logger.trace(`create collection "${dbNameOn}" with data:`, dbSetupOn)
 
       let newCollection = this.lokijsDb.addCollection(dbNameOn)
-      for (const docOn of dbSetupOn.data) {
-        newCollection.insert(docOn)
-      }
-      return this.lokijsDb
-    })
+      newCollection.insert(dbSetupOn)
+    }
+    return this.lokijsDb
   }
 }
 

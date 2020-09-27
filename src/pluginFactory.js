@@ -1,6 +1,6 @@
 import Logger from './helper/logger'
 import ChildProcess from 'child_process'
-import AppRoot from 'app-root-path'
+import AppRoot from 'app-root-path' // TODO: do we really need an external lib?
 import PluginNode from './pluginNode'
 
 const isPluginAvailable = Symbol('isPluginAvailable')

@@ -2,8 +2,8 @@ import fs from 'fs'
 import Logger from './helper/logger'
 import Mission from './mission'
 import DatabaseFactory from './databaseFactory'
-import ActionTreeFactory from './actionTreeFactory'
 import PluginFactory from './pluginFactory'
+import ActionTreeFactory from './actionTreeFactory'
 
 class MissionFactory {
   constructor (options) {
@@ -14,15 +14,16 @@ class MissionFactory {
     this.fileContent = JSON.parse(fs.readFileSync(this.filePath, 'utf8'))
   }
 
-  // todo: validate json schema here!
+  // TODO: check is fileContent = json?
+  // todo: validate json schema here! (key existing: info?, collections?, plugin?, actions?)
   async setup () {
-    let databaseFactory = new DatabaseFactory({ databases: this.fileContent.databases })
+    let databaseFactory = new DatabaseFactory({ collections: this.fileContent.collections })
     let pluginFactory = new PluginFactory({ plugins: this.fileContent.plugins })
     let actionTreeFactory = new ActionTreeFactory({ actions: this.fileContent.actions })
 
     return new Mission({
       info: this.fileContent.info,
-      databases: databaseFactory.setup(),
+      database: databaseFactory.setup(),
       plugins: pluginFactory.setup(),
       actions: actionTreeFactory.setup()
     })

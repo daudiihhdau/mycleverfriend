@@ -7,12 +7,17 @@
     "description": "Copy a directory or file.",
     "tags": ["directory", "copy"]
   },
-  "databases": { 
-    "csvfiles": {
-      "data": [{
-        "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
-      }]
-    }
+  "collections": { 
+    "csvfiles": [
+      {
+        "filename": "/home/daudiihhdau/Downloads/test1.csv",
+        "enabled": true
+      },
+      {
+        "filename": "/home/daudiihhdau/Downloads/test99.csv",
+        "enabled": false
+      }
+    ]
   },
   "plugins": [
     { "name": "@mycleverfriend/readcsvplugin", "version": "1.0.0" }
@@ -20,12 +25,14 @@
   "actions": [
     {
       "plugin_id": 0,
-      "files": [
-        {
-          "select": ["filename"],
-          "from": "csvfiles"
+      "packages": {
+        "files": {
+          "csvfiles": {
+            "keys": ["filename"],
+            "where": { "enabled": true }
+          }
         }
-      ]
+      }
     }
   ]
 }

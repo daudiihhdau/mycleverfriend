@@ -7,63 +7,46 @@
     "description": "Copy a directory or file.",
     "tags": ["directory", "copy"]
   },
-  "databases": { 
-    "csvfiles": {
-      "data": [{
-        "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
-      }]
-    },
-    "jsscripts": {
-      "data": [{
-        "filepath": "/home/daudiihhdau/Dokumente/ronny_romo/test.js"
-      }]
-    },
-    "resultfiles": {
-      "data": [{
-        "path": "/home/daudiihhdau/Dokumente/ronny_romo/romo.csv"
-      }]
-    }
+  "databases": {
+    "csvfiles_left": [{
+      "filename": "/home/daudiihhdau/Downloads/ronny_romo_com_new_collection.csv"
+    }],
+    "csvfiles_right": [{
+      "filename": "/home/daudiihhdau/Dokumente/ronny_romo/test.js"
+    }],
+    "result_files": [{
+      "path": "/home/daudiihhdau/Dokumente/ronny_romo/romo.csv"
+    }]
   },
   "plugins": [
     { "name": "ReadCsv", "version": "1.0.0.1" },
-    { "name": "ExecuteJavascript", "version": "1.0.0.1" },
     { "name": "SaveFiles", "version": "1.0.0.1" }
   ],
-  "tasks": [
+  "actions": [
     {
       "plugin_id": 0,
       "files": [
         {
           "select": ["filename"],
-          "from": "csvfiles",
-          "where": "[*]"
+          "from": "csvfiles_left"
+        }
+      ]
+    },
+    {
+      "plugin_id": 0,
+      "files": [
+        {
+          "select": ["filename"],
+          "from": "csvfiles_right"
         }
       ]
     },
     {
       "plugin_id": 1,
-      "jsscripts": [
-        {
-          "select": ["filepath"],
-          "from": "jsscripts",
-          "where": "[*]"
-        }
-      ],
-      "values": [
-        {
-          "select": ["sku", "sourcecode"],
-          "from": "csvfiles",
-          "where": "[*].content"
-        }
-      ]
-    },
-    {
-      "plugin_id": 2,
       "paths": [
         {
           "select": ["path"],
-          "from": "resultfiles",
-          "where": "[*]"
+          "from": "result_files"
         }
       ],
       "content": [

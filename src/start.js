@@ -1,11 +1,11 @@
-// import ora from 'ora'
-// import chalk from 'chalk'
+//  TODO to console-program: import ora from 'ora'
+// TODOto console-program: import chalk from 'chalk'
 import Logger from './helper/logger'
 import MissionFactory from './missionFactory'
 
 // load mission file
 // download & load & prepare all plugins
-// load & prepare all databases
+// load & prepare all collections
 // walk through actions
 
 async function start () {

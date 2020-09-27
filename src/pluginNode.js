@@ -5,10 +5,13 @@ class PluginNode {
     Logger.trace('init pluginNode with options:', options)
     if (!('pluginPackage' in options)) throw new Error('options.pluginPackage is required')
     if (!('pluginProxy' in options)) throw new Error('options.pluginProxy is required')
+    if (!('dataSet' in options.pluginProxy)) throw new Error('options.pluginProxy.dataSet is required')
     if (!('start' in options.pluginProxy)) throw new Error('options.pluginProxy.start is required')
 
     this.proxy = options.pluginProxy
     this.info = options.pluginPackage
+
+    // TODO: use dataSetFactory
   }
 
   get Name () {

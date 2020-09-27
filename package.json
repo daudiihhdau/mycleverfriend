@@ -37,18 +37,13 @@
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-promise": "^3.8.0",
     "eslint-plugin-standard": "^3.1.0",
-    "rimraf": "^2.6.2",
     "watch": "^1.0.2"
   },
   "dependencies": {
     "@mycleverfriend/readcsvplugin": "^1.0.0",
     "app-root-path": "^2.1.0",
     "bunyan": "^1.8.12",
-    "chalk": "^2.4.1",
-    "fuse.js": "^3.2.1",
-    "knex": "^0.15.2",
-    "lokijs": "^1.5.5",
-    "ora": "^3.0.0",
-    "tree-model": "^1.0.7"
+    "knex": "^0.21.2",
+    "lokijs": "^1.5.5"
   }
 }
