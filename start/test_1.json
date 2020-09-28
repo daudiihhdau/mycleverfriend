@@ -11,10 +11,22 @@
     "csvfiles": [
       {
         "filename": "/home/daudiihhdau/Downloads/test1.csv",
+        "size": 3,
         "enabled": true
       },
       {
-        "filename": "/home/daudiihhdau/Downloads/test99.csv",
+        "filename": "/home/daudiihhdau/Downloads/test2.csv",
+        "size": 5,
+        "enabled": true
+      },
+      {
+        "filename": "/home/daudiihhdau/Downloads/test3.csv",
+        "size": 12,
+        "enabled": true
+      },
+      {
+        "filename": "/home/daudiihhdau/Downloads/test101.csv",
+        "size": 12,
         "enabled": false
       }
     ]
@@ -28,9 +40,21 @@
       "packages": {
         "files": [
           {
-            "select": ["filename", "enabled AS   is_enabled"],
+            "select": ["filename", "enabled"],
             "from": "csvfiles",
-            "where": { "enabled": true }
+            "where": { "age": { "$gt": 10}, "enabled": true }
+          },
+          {
+            "select": ["filename", "enabled"],
+            "from": "csvfiles",
+            "where": { "age": { "$lt": 10}, "enabled": true },
+            "merge": { "type": "push" }
+          },
+          {
+            "select": ["filename AS filename2", "enabled AS enabled2"],
+            "from": "csvfiles",
+            "where": { "enabled": false },
+            "merge": { "type": "assign", "mode": "strict" }
           }
         ]
       }
