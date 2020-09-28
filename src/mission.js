@@ -47,33 +47,44 @@ class Mission {
 
       // load input data
       let packages = {}
-      for (const [dbDestinationOn, sourcesOn] of Object.entries(actionOn.packages)) {
-        for (const [collectionNameOn, collectionValueOn] of Object.entries(sourcesOn)) {
-          Logger.trace(`copy data from "${collectionNameOn}" to "${dbDestinationOn}" using query:`, collectionValueOn)
+      for (const [destinationOn, sourcesOn] of Object.entries(actionOn.packages)) {
+        for (let sourceQueryOn of sourcesOn) {
+          Logger.trace(`load data for package[${destinationOn}] using query:`, sourceQueryOn)
           // prepare lokijs chaining (via lokijs Resultsets) - allows for sorting, limiting, offsets ...
-          let chain = this.database.getCollection(collectionNameOn).chain()
+          let chain = this.database.getCollection(sourceQueryOn.from).chain()
 
           // query subselection of items
           // https://rawgit.com/techfort/LokiJS/master/docs/tutorial-Query%20Examples.html
-          if ('where' in collectionValueOn) {
-            chain = chain.find(collectionValueOn.where)
+          if ('where' in sourceQueryOn) {
+            chain = chain.find(sourceQueryOn.where)
           }
 
           // pick required keys in every item
-          packages[dbDestinationOn] = chain.data().map(rowOn => this[pickKeys](rowOn, collectionValueOn.keys))
+          // TODO: add AS keyword, to rename keys
+          packages[destinationOn] = chain.data().map(rowOn => this[pickKeys](rowOn, sourceQueryOn.select))
         }
       }
       console.log(packages)
 
       // TODO: start plugin nodes
+      // pluginNode.start(packages)
     })
   }
 
   [pickKeys] (obj, keys) {
     if (!obj || !keys) return
+    // every key must be written in lower cases
+    keys = keys.map(keyOn => keyOn.toLowerCase().trim())
+
     let picked = {}
     for (const keyOn of keys) {
-      picked[keyOn] = obj[keyOn]
+      // should we use an alias name for this key?
+      if (keyOn.includes(' as ')) {
+        let tokens = keyOn.split(' ').filter(tokenOn => tokenOn.length > 0)
+        picked[tokens[2]] = obj[tokens[0]]
+      } else {
+        picked[keyOn] = obj[keyOn]
+      }
     }
     return picked
   }

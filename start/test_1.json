@@ -26,12 +26,13 @@
     {
       "plugin_id": 0,
       "packages": {
-        "files": {
-          "csvfiles": {
-            "keys": ["filename"],
+        "files": [
+          {
+            "select": ["filename", "enabled AS   is_enabled"],
+            "from": "csvfiles",
             "where": { "enabled": true }
           }
-        }
+        ]
       }
     }
   ]
