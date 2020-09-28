@@ -42,7 +42,8 @@
           {
             "select": ["filename", "enabled"],
             "from": "csvfiles",
-            "where": { "age": { "$gt": 10}, "enabled": true }
+            "where": { "age": { "$gt": 10}, "enabled": true },
+            "merge": { "type": "push" }
           },
           {
             "select": ["filename", "enabled"],
@@ -54,7 +55,7 @@
             "select": ["filename AS filename2", "enabled AS enabled2"],
             "from": "csvfiles",
             "where": { "enabled": false },
-            "merge": { "type": "assign", "mode": "strict" }
+            "merge": { "type": "assign", "mode": "recycling" }
           }
         ]
       }

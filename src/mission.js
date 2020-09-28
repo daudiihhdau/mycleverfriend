@@ -48,7 +48,7 @@ class Mission {
       // load input data
       let packages = {}
       for (const [destinationOn, sourcesOn] of Object.entries(actionOn.packages)) {
-        let data = sourcesOn.map((sourceQueryOn) => {
+        let resultsArrays = sourcesOn.map((sourceQueryOn) => {
           Logger.trace(`load data for package[${destinationOn}] using query:`, sourceQueryOn)
           // prepare lokijs chaining (via lokijs Resultsets) - allows for sorting, limiting, offsets ...
           let chain = this.database.getCollection(sourceQueryOn.from).chain()
@@ -62,22 +62,22 @@ class Mission {
           // pick required keys in every single item (and rename it, if necessary)
           let data = chain.data().map(rowOn => this[pickKeys](rowOn, sourceQueryOn.select))
 
-          return { mergeMode: ('merge' in sourceQueryOn) ? sourceQueryOn.merge : { type: 'push' }, data }
+          return { mergeSetup: sourceQueryOn.merge, data }
         })
 
-        // TODO: merge = (push || assign (mode: recycling || strict) || join [default, recycling_mode, by id])
-        packages[destinationOn] = data.reduce((acc, valueArrOn) => {
+        // TODO: mergeSetup = (push || assign (mode: recycling || strict) || join [default, recycling_mode, by id])
+        packages[destinationOn] = resultsArrays.reduce((acc, resultOn) => {
           // append the new rows to the given rows
-          if (valueArrOn.mergeMode.type === 'push') {
-            acc = acc.concat(valueArrOn.data)
+          if (resultOn.mergeSetup.type === 'push') {
+            acc = acc.concat(resultOn.data)
           }
           // assign properties to every row
           // TODO: rewrite this code!
           // recycling: https://eriqande.github.io/rep-res-web/lectures/vectorization_recycling_and_indexing.html
-          if (valueArrOn.mergeMode.type === 'assign') {
+          if (resultOn.mergeSetup.type === 'assign') {
             for (let i = 0; i < acc.length; i++) {
-              acc[i] = Object.assign({}, acc[i], valueArrOn.data[i % valueArrOn.data.length])
-              if (valueArrOn.mergeMode.mode === 'strict' && i >= (valueArrOn.data.length - 1)) {
+              acc[i] = Object.assign({}, acc[i], resultOn.data[i % resultOn.data.length])
+              if (resultOn.mergeSetup.mode === 'strict' && i >= (resultOn.data.length - 1)) {
                 acc.pop()
               }
             }
