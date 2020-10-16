@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "info": {
+    "name": "Test: Simple Package Reference",
+    "version": "0.0.0.1",
+    "author": "Mathias Mielitz",
+    "description": "Validate simple package loading.",
+    "tags": ["test"]
+  },
+  "collections": { 
+    "simple_1": [
+      {
+        "my_text": "Hallo Welt",
+        "my_integer": 3,
+        "my_float": 0.09,
+        "my_boolean": true
+      },
+      {
+        "my_text": "Hallo Katze",
+        "my_integer": 5,
+        "my_float": 4.49,
+        "my_boolean": true
+      },
+      {
+        "my_text": "Hallo Hund",
+        "my_integer": 9,
+        "my_float": 6.69,
+        "my_boolean": true
+      }
+    ],
+    "simple_2": [
+      {
+        "new_text": "test.json",
+        "new_integer": 6,
+        "new_float": 6.6,
+        "new_boolean": false
+      }
+    ],
+    "expectation_1": [
+      {
+        "my_text": "Hallo Welt",
+        "my_integer": 3,
+        "my_float": 0.09,
+        "my_boolean": true,
+        "new_text": "test.json",
+        "new_integer": 6,
+        "new_float": 6.6,
+        "new_boolean": false
+      },
+      {
+        "my_text": "Hallo Katze",
+        "my_integer": 5,
+        "my_float": 4.49,
+        "my_boolean": true,
+        "new_text": "test.json",
+        "new_integer": 6,
+        "new_float": 6.6,
+        "new_boolean": false
+      },
+      {
+        "my_text": "Hallo Hund",
+        "my_integer": 9,
+        "my_float": 6.69,
+        "my_boolean": true,
+        "new_text": "test.json",
+        "new_integer": 6,
+        "new_float": 6.6,
+        "new_boolean": false
+      }
+    ]
+  },
+  "plugins": [
+    { "name": "@mycleverfriend/assertplugin", "version": "0.0.1" }
+  ],
+  "actions": [
+    {
+      "plugin_id": 0,
+      "packages": {
+        "origin": [
+          {
+            "select": ["my_text", "my_integer", "my_float", "my_boolean"],
+            "from": "simple_1"
+          },
+          {
+            "select": ["new_text", "new_integer", "new_float", "new_boolean"],
+            "from": "simple_2",
+            "merge": { "type": "assign" }
+          }
+        ],
+        "expectation": [
+          {
+            "select": ["my_text", "my_integer", "my_float", "my_boolean", "new_text", "new_integer", "new_float", "new_boolean"],
+            "from": "expectation_1"
+          }
+        ]
+      }
+    }
+  ]
+}

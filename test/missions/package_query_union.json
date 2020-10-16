@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "info": {
+    "name": "Test: Simple Package Reference",
+    "version": "0.0.0.1",
+    "author": "Mathias Mielitz",
+    "description": "Validate simple package loading.",
+    "tags": ["test"]
+  },
+  "collections": { 
+    "simple_1": [
+      {
+        "my_text": "Hallo Welt",
+        "my_integer": 3,
+        "my_float": 0.09,
+        "my_boolean": true
+      }
+    ],
+    "expectation_1": [
+      {
+        "my_string": "Hallo Welt",
+        "my_integer": 3,
+        "my_float": 0.09,
+        "my_boolean": true
+      }
+    ]
+  },
+  "plugins": [
+    { "name": "@mycleverfriend/assertplugin", "version": "0.0.1" }
+  ],
+  "actions": [
+    {
+      "plugin_id": 0,
+      "packages": {
+        "origin": [
+          {
+            "select": ["my_text AS my_string", "my_integer", "my_float", "my_boolean"],
+            "from": "simple_1",
+            "where": { "my_boolean": true }
+          }
+        ],
+        "expectation": [
+          {
+            "select": ["my_string", "my_integer", "my_float", "my_boolean"],
+            "from": "expectation_1",
+            "where": { "my_boolean": true }
+          }
+        ]
+      }
+    }
+  ]
+}

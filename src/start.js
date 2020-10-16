@@ -9,8 +9,10 @@ import MissionFactory from './missionFactory'
 // walk through actions
 
 async function start () {
+  let filePath = (process.argv.length >= 3) ? process.argv[2] : './test/missions/package_query_assign_big_to_small_group.json'
+
   Logger.trace('start')
-  let missionFactory = new MissionFactory({ filePath: './start/test_1.json' })
+  let missionFactory = new MissionFactory({ filePath })
   let mission = await missionFactory.setup()
   await mission.start()
 }

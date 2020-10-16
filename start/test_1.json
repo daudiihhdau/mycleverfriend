@@ -43,19 +43,19 @@
             "select": ["filename", "enabled"],
             "from": "csvfiles",
             "where": { "age": { "$gt": 10}, "enabled": true },
-            "merge": { "type": "push" }
+            "merge": { "type": "union" }
           },
           {
             "select": ["filename", "enabled"],
             "from": "csvfiles",
             "where": { "age": { "$lt": 10}, "enabled": true },
-            "merge": { "type": "push" }
+            "merge": { "type": "union" }
           },
           {
             "select": ["filename AS filename2", "enabled AS enabled2"],
             "from": "csvfiles",
             "where": { "enabled": false },
-            "merge": { "type": "assign", "mode": "recycling" }
+            "merge": { "type": "join", "mode": "recycling" }
           }
         ]
       }

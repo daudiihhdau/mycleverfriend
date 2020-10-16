@@ -46,7 +46,7 @@ class Mission {
       Logger.trace('prepare pluginNode: ', pluginNode)
 
       // load input data
-      let packages = {}
+      let input = {}
       for (const [destinationOn, sourcesOn] of Object.entries(actionOn.packages)) {
         let resultsArrays = sourcesOn.map((sourceQueryOn) => {
           Logger.trace(`load data for package[${destinationOn}] using query:`, sourceQueryOn)
@@ -59,38 +59,48 @@ class Mission {
             chain = chain.find(sourceQueryOn.where)
           }
 
+          // union is the default mergeSetup
+          if (!('merge' in sourceQueryOn)) {
+            sourceQueryOn['merge'] = { 'type': 'union' }
+          }
+
           // pick required keys in every single item (and rename it, if necessary)
           let data = chain.data().map(rowOn => this[pickKeys](rowOn, sourceQueryOn.select))
 
           return { mergeSetup: sourceQueryOn.merge, data }
         })
+        console.log('%j', resultsArrays)
 
-        // TODO: mergeSetup = (push || assign (mode: recycling || strict) || join [default, recycling_mode, by id])
-        packages[destinationOn] = resultsArrays.reduce((acc, resultOn) => {
+        // TODO: mergeSetup = (union || assign [strict, recycling] || join by id])
+        input[destinationOn] = resultsArrays.reduce((acc, resultOn) => {
           // append the new rows to the given rows
-          if (resultOn.mergeSetup.type === 'push') {
+          if (resultOn.mergeSetup.type === 'union') {
+            // TODO: column names must have the same name
             acc = acc.concat(resultOn.data)
           }
-          // assign properties to every row
-          // TODO: rewrite this code!
-          // recycling: https://eriqande.github.io/rep-res-web/lectures/vectorization_recycling_and_indexing.html
+          // add properties to every row
+          // recycling: http://www.r-tutor.com/r-introduction/vector/vector-arithmetics
           if (resultOn.mergeSetup.type === 'assign') {
-            for (let i = 0; i < acc.length; i++) {
-              acc[i] = Object.assign({}, acc[i], resultOn.data[i % resultOn.data.length])
-              if (resultOn.mergeSetup.mode === 'strict' && i >= (resultOn.data.length - 1)) {
-                acc.pop()
-              }
+            let bigDataset = acc
+            let smallDataset = resultOn.data
+            // swap variables
+            if (resultOn.data.length > acc.length) [bigDataset, smallDataset] = [smallDataset, bigDataset]
+
+            for (let i = 0; i < bigDataset.length; i++) {
+              bigDataset[i] = Object.assign({}, bigDataset[i], smallDataset[i % smallDataset.length])
             }
+            acc = bigDataset
           }
 
           // TODO: add join with foreign key
           return acc
         }, [])
       }
-      console.log('%j', packages)
+
+      console.log('%j', input)
 
       // TODO: start plugin nodes
-      // pluginNode.start(packages)
+      pluginNode.work(input)
     })
   }
 

@@ -6,7 +6,7 @@ class PluginNode {
     if (!('pluginPackage' in options)) throw new Error('options.pluginPackage is required')
     if (!('pluginProxy' in options)) throw new Error('options.pluginProxy is required')
     if (!('dataSet' in options.pluginProxy)) throw new Error('options.pluginProxy.dataSet is required')
-    if (!('start' in options.pluginProxy)) throw new Error('options.pluginProxy.start is required')
+    if (!('work' in options.pluginProxy)) throw new Error('options.pluginProxy.work is required')
 
     this.proxy = options.pluginProxy
     this.info = options.pluginPackage
@@ -38,9 +38,9 @@ class PluginNode {
     return this.info.homepage
   }
 
-  async start () {
+  async work (packages) {
     Logger.trace('start plugin')
-    this.proxy.start()
+    this.proxy.work(packages)
   }
 }
 
